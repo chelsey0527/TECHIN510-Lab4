@@ -27,7 +27,6 @@ if len(user_selection) <= 4:
     st.session_state.selected_locations = user_selection
 else:
     st.error('You can select up to 4 locations only.')
-    # Automatically trim the selection to 4 if more are chosen
     st.session_state.selected_locations = user_selection[:4]
 
 # Use columns to display the selected locations and their current times
