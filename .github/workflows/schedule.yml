@@ -1,24 +1,22 @@
-name: Periodic Runner
+name: Periodic Time Logger
 
 on:
   schedule:
     - cron: '*/15 * * * *'
 
 jobs:
-  run_script:
+  log_times:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
       
       - name: Install dependencies
-        run: |
-          pip install -r app/requirements.txt
+        run: pip install pytz
           
-      - name: Run the time logging task
+      - name: Log current times
         run: streamlit run app.py
