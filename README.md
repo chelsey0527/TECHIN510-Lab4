@@ -1,8 +1,8 @@
 # - Lab 4 Overview -
-[1. World clock that displays time in different locations around the world](./app.py)
-[2. GitHub Action that runs a script periodically (every 15 min)](./hello.py)
-[3. PostgreSQL server on Azure](./510-3.png)
-[4. HW 3: Regex](./HW3.ipynb)
+1. [World clock that displays time in different locations around the world](./app.py)
+2. [GitHub Action that runs a script periodically (every 15 min)](./hello.py)
+3. [PostgreSQL server on Azure](./510-3.png)
+4. [HW 3: Regex](./HW3.ipynb)
 
 # World Clock Web App
 
