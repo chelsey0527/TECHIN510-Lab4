@@ -1,69 +1,26 @@
-# import streamlit as st
-# from datetime import datetime
-# import pytz
-
-# # Title of the web app
-# st.title('World Clock Application')
-
-# # Dropdown menu for selecting locations
-# locations = {
-#     'New York': 'America/New_York',
-#     'Taipei': 'Asia/Taipei',
-#     'Tokyo': 'Asia/Tokyo',
-#     'Sydney': 'Australia/Sydney',
-#     'Moscow': 'Europe/Moscow',
-#     'London': 'Europe/London',
-# }
-
-# # User can initially select locations, with a limit up to 4
-# if 'selected_locations' not in st.session_state:
-#     st.session_state.selected_locations = ['New York', 'Taipei']
-
-# # Render multiselect widget without directly limiting selections but track via session state
-# user_selection = st.multiselect('Select up to 4 locations', options=list(locations.keys()), default=st.session_state.selected_locations)
-
-# # Update session state and enforce limit if necessary
-# if len(user_selection) <= 4:
-#     st.session_state.selected_locations = user_selection
-# else:
-#     st.error('You can select up to 4 locations only.')
-#     st.session_state.selected_locations = user_selection[:4]
-
-# # Use columns to display the selected locations and their current times
-# col1, col2 = st.columns(2)
-
-# # Display the current time in the selected locations using columns for a cleaner look
-# for i, location in enumerate(st.session_state.selected_locations):
-#     timezone = pytz.timezone(locations[location])
-#     now = datetime.now(timezone)
-    
-#     # Alternate between columns
-#     with (col1 if i % 2 == 0 else col2):
-#         st.markdown(f"**{location}**")
-#         st.write(f"{now.strftime('%Y-%m-%d %H:%M:%S')}")
-
-# app/app.py
 import streamlit as st
-import json
+import datetime
+import pytz
+from streamlit_autorefresh import st_autorefresh
 
-# Function to load times from times.json
-def load_times():
-    try:
-        with open('times.json', 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return {}
+# Use streamlit_autorefresh for updating the time every second
+st_autorefresh(interval=1000, key="time_refresher")
 
-def main():
-    st.title('World Clock Application')
-    
-    times_data = load_times()
+# Title of the application
+st.title('World Clock')
 
-    if times_data:
-        for location, time in times_data.items():
-            st.write(f"**{location}:** {time}")
-    else:
-        st.write("No time data available.")
+# List of available time zones
+time_zones = list(pytz.all_timezones)
 
-if __name__ == "__main__":
-    main()
+# Dropdown menu for selecting locations
+selected_zones = st.multiselect('Select up to 4 locations:', time_zones, default=["UTC"], help="You can select up to 4 locations.")
+
+# Limit selection to 4 locations
+if len(selected_zones) > 4:
+    st.error("Please select up to 4 locations only.")
+else:
+    # Display the current time for the selected locations
+    for zone in selected_zones:
+        tz = pytz.timezone(zone)
+        current_time = datetime.datetime.now(tz)
+        st.write(f"Current time in {zone}: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
