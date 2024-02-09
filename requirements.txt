@@ -1,3 +1,5 @@
 streamlit 
 pytz
 streamlit_autorefresh
+requests
+beautifulsoup4
