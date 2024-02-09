@@ -22,4 +22,4 @@ jobs:
         env:
           PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
         run: |
-          python hellp.py
+          python hello.py
