@@ -18,5 +18,8 @@ jobs:
           python-version: '3.8'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run hello.py
-        run: python hello.py
+      - name: Run hellp.py
+        env:
+          PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
+        run: |
+          python hellp.py

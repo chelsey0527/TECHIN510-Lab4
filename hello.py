@@ -5,12 +5,9 @@ import warnings
 from urllib3.exceptions import InsecureRequestWarning
 import psycopg2
 
-# Define the path to the file
-password_file_path = './pw.txt'
+import os
+password = os.getenv('POSTGRE_PASSWORD')
 
-# Use a context manager to open and read the file
-with open(password_file_path, 'r') as file:
-    password = file.read().strip()  # .strip() removes any leading/trailing whitespace
 
 
 # Suppress SSL warnings
