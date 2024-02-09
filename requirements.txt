@@ -3,3 +3,4 @@ pytz
 streamlit_autorefresh
 requests
 beautifulsoup4
+psycopg2
